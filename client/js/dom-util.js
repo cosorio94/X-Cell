@@ -19,7 +19,7 @@ const createTH = createEl('TH');
 const createTD = createEl('TD');
 
 module.exports = {
-  createTD: createTD,
+  createTR: createTR,
   createTH: createTH,
   createTD: createTD,
   removeChildren: removeChildren
