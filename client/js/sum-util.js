@@ -1,5 +1,8 @@
 const getArraySum = function (nums) {
   let filteredNums = getNumberArray(nums);
+  if(filteredNums.length < 2){
+    return undefined;
+  }
   return filteredNums.reduce((a, b) => a + b);
 };
 
