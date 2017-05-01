@@ -11,6 +11,47 @@ describe('table-view', () => {
     document.documentElement.innerHTML = html;
   });
 
+  describe('formula-bar', () => {
+    it('makes changes TO the value of the current cell', () => {
+      // set up initial state
+      const model = new TableModel(3, 3);
+      const view = new TableView(model);
+      view.init();
+
+      // inspect initial state
+      let trs = document.querySelectorAll('TBODY TR');
+      let td = trs[0].cells[0];
+      expect(td.textContent).toBe('');
+
+      // simulate user action
+      document.querySelector('#formula-bar').value = '65';
+      view.handleFormulaBarChange();
+
+      // inspect the resulting state
+      trs = document.querySelectorAll('TBODY TR');
+      expect(trs[0].cells[0].textContent).toBe('65');
+    });
+
+    it('it updates FROM the value of the current cell', () => {
+      // set up initial state
+      const model = new TableModel(3, 3);
+      const view = new TableView(model);
+      model.setValue({col: 2, row: 1}, '123')
+      view.init();
+
+      // inspect initial state
+      const formulaBarEl = document.querySelector('#formula-bar');
+      expect(formulaBarEl.value).toBe('');
+
+      // simulate user action
+      const trs = document.querySelectorAll('TBODY TR');
+      trs[1].cells[2].click();
+
+      // inspect the resulting test
+      expect(formulaBarEl.value).toBe('123');
+    });
+  });
+
   describe('table body', () => {
     it('highlights the current cell whrn clicked', () => {
       // set up initial state
@@ -30,7 +71,7 @@ describe('table-view', () => {
       trs = document.querySelectorAll('TBODY TR');
       td = trs[2].cells[3];
       expect(td.className).not.toBe('');
-    })
+    });
 
     it('has the right size', () => {
       // set up initial state
@@ -43,7 +84,7 @@ describe('table-view', () => {
       // inspect initial state
       let ths = document.querySelectorAll('THEAD TH');
       expect(ths.length).toBe(numCols);
-    })
+    });
 
     it('fills in the values from the model', () => {
       // set up initial state
@@ -61,8 +102,8 @@ describe('table-view', () => {
       view.init();
       trs = document.querySelectorAll('TBODY TR');
       expect(trs[1].cells[2].textContent).toBe('324');
-    })
-  })
+    });
+  });
 
   describe('table header', () => {
     it('has valid column header labels', () => {
@@ -81,4 +122,4 @@ describe('table-view', () => {
       expect(labelTexts).toEqual(['A', 'B', 'C', 'D', 'E', 'F']);
     });
   });
-})
+});
