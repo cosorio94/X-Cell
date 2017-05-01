@@ -11,6 +11,33 @@ describe('table-view', () => {
     document.documentElement.innerHTML = html;
   });
 
+  describe('table footer', () => {
+    it('makes changes to the value of the sum row cells', () => {
+      // set up initial state
+      const model = new TableModel(3, 3);
+      const view = new TableView(model);
+      view.init();
+
+      // inspect initial state
+      let td = document.querySelectorAll('TFOOT TR TD');
+      expect(td[0].textContent).toEqual('');
+
+      // simulate user action
+      document.querySelector('#formula-bar').value = '65';
+      view.handleFormulaBarChange();
+      view.currentCellLocation = {col: 0, row: 2};
+      document.querySelector('#formula-bar').value = '-62';
+      view.handleFormulaBarChange();
+
+      //inspect the resulting state
+      view.renderTableFooter();
+      td = document.querySelectorAll('TFOOT TR TD');
+      let location = {col: 0, row: 'sum'};
+      expect(view.model.getValue(location)).toEqual(3);
+      expect(td[0].textContent).toEqual('3');
+    });
+  });
+
   describe('formula-bar', () => {
     it('makes changes TO the value of the current cell', () => {
       // set up initial state
