@@ -7,11 +7,13 @@
     "build": "mkdir -p public/js; browserify client/js/app.js > public/js/bundle.js",
     "watch": "watchify client/js/app.js -o public/js/bundle.js",
     "test": "jest",
-    "start": "node index.js"
+    "start": "node index.js",
+    "postinstall": "mkdir -p public/js; browserify client/js/app.js > public/js/bundle.js"
   },
   "author": "Carlos Osorio <carlososoriov@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "browserify": "^14.3.0",
     "express": "^4.15.2"
   },
   "devDependencies": {
