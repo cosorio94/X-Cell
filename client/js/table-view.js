@@ -75,15 +75,13 @@ class TableView{
   }
 
   renderTableFooter(){
-     const fragment = document.createDocumentFragment();
-     for (let col = 0; col < this.model.numCols; col++){
+    removeChildren(this.footerRowEl);
+    for (let col = 0; col < this.model.numCols; col++){
       const position = {col: col, row: 'sum'};
       const value = this.normalizeValueForRendering(this.model.getValue(position));
       const td = createTD(value);
-      fragment.appendChild(td);
-     }
-     removeChildren(this.footerRowEl);
-     this.footerRowEl.appendChild(fragment);
+      this.footerRowEl.appendChild(td);
+    }
   }
 
   attachEventHandlers(){

@@ -21,7 +21,7 @@ class TableModel{
 
   getColumnSum(col){
     let colNums = [];
-    for (var i = 0; i < this.numRows; i++) {
+    for (let i = 0; i < this.numRows; i++) {
       colNums.push(this.getValue({col: col, row: i}));
     }
     return getArraySum(colNums);
@@ -29,7 +29,7 @@ class TableModel{
 
   setSumRow(){
     let location = {col: 0, row: 'sum'};
-    for (var col = 0; col < this.numCols; col++){
+    for (let col = 0; col < this.numCols; col++){
       location.col = col;
       this.setValue(location, this.getColumnSum(col));
     }
